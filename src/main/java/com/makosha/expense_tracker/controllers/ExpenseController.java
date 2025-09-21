@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,15 +45,6 @@ public class ExpenseController {
         return expenseMapper.toDto(createdExpense);
     }
 
-    @PutMapping(path = "/categories/{category_id}/expenses/{expense_id}")
-    public ExpenseDto updateExpense(
-            @PathVariable("category_id") UUID categoryId,
-            @PathVariable("expense_id") UUID expenseId,
-            @RequestBody ExpenseDto expenseDto) {
-        Expense updatedExpense = expenseService.updateExpense(categoryId, expenseId, expenseMapper.toEntity(expenseDto));
-        return expenseMapper.toDto(updatedExpense);
-    }
-
     @DeleteMapping(path = "/categories/{category_id}/expenses/{expense_id}")
     public void deleteExpense(
             @PathVariable("category_id") UUID categoryId,
@@ -63,16 +53,7 @@ public class ExpenseController {
         expenseService.deleteExpense(categoryId, expenseId);
     }
 
-    @GetMapping("/expenses/between")
-    public List<ExpenseDto> getExpensesBetweenDates(
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
-    ) {
-        return expenseService.getExpensesBetweenDates(startDate, endDate)
-                .stream()
-                .map(expenseMapper::toDto)
-                .toList();
-    }
+
 
     @GetMapping("/expenses/between/total")
     public Double getTotalAmountBetweenDates(

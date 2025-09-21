@@ -23,7 +23,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> listAllCategories() {
-        //return categoryRepository.findAll();                                      //то, что было
         List<Category> categories = categoryRepository.findAll();
 
         double totalExpenses = categories.stream()

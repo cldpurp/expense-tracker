@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode
-@Builder    //зач мне билдер?
+@Builder
 public class Expense {
 
     @Id
